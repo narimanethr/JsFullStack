@@ -1,0 +1,28 @@
+le serveur est une application qui écoute et éxécute , il écoute des requétes ( ceux qui veulent se connecter à ce serveur )
+Le serveur doit :
+servir des pages web 
+exp : index.html
+Un serveur basique
+Dans l'exercice 1, nous avons utilisé Node.js pour créer un serveur basique traitant une requête HTTP.
+
+Il renvoie toujours la même réponse.
+
+Nous allons voir comment ça marche
+
+var http = require('http');
+Charge le module http de Node.js et le stocke dans la variable http.
+
+var server = http.createServer(function(request, response) {
+
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.end("Hello World!");
+
+});
+Utilise la fonction createServer du module http de Node.js pour créer un Serveur HTTP et le stocker dans la variable server.
+
+La fonction passée en paramètre sera exécutée à chaque requête.
+
+server.listen(8080);
+Associe (bind) le serveur au port 8080, pour traiter les requêtes arrivant sur ce port.
+---------------------------------------------------------------------------------------------------------
+on a utiliser des classes pour mieux organiser les routes 

@@ -25,4 +25,4 @@ La fonction passée en paramètre sera exécutée à chaque requête.
 server.listen(8080);
 Associe (bind) le serveur au port 8080, pour traiter les requêtes arrivant sur ce port.
 ---------------------------------------------------------------------------------------------------------
-on a utiliser des classes pour mieux organiser les routes 
+on a utiliser des classes pour mieux organiser les routes pour les différentes requétes 

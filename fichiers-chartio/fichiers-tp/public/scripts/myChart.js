@@ -11,11 +11,7 @@ const allLabels = new Array(nbValues).fill(defaultValue).map( (_,i) => String.fr
 // l'objet Chart
 let myChart;
 const socket = io();
-socket.on('welcome', () => console.log('connection with server done') );
-changeNumber = number => document.getElementById('colorZone').style.backgroundColor = color ;
-displayMessage = msg => document.getElementById('messageZone').textContent = msg ;
-socket.on('new user', newUser => displayMessage(`${newUser} a rejoint la session`) );
-socket.on('change number');
+socket.on('nombre choisi',nombre=>console.log(nombre));
 const setup = () => {
   const ctxt = document.getElementById('myChart').getContext('2d');
 

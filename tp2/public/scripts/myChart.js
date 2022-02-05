@@ -1,22 +1,18 @@
-import { Server as IOServer } from 'socket.io';
+
 const nbValues = 12;
 const defaultValue = 1;
 const MIN_VALUE = 0;
 const MAX_VALUE = 10;
 
+
 const allLabels = new Array(nbValues).fill(defaultValue).map( (_,i) => String.fromCharCode('A'.charCodeAt(0)+i));
 //const allLabels = ['J','F','M','A','M','J','J','A','S','O','N','D'];
-
 const socket = io();
-socket.on('nombre choisi',nombre=>console.log(nombre));
-socket.on('mise à jour du graphe ', chart.data.datasets.forEach((dataset) => {
-  console.log(dataset.data);
-}));
+socket.on('nombre choisi',nombre=>updateData(myChart,allLabels[11],nombre));
 // l'objet Chart
 let myChart;
-
 const setup = () => {
-  const ctxt = document.getElementById('myChart').getContext('2d');
+const ctxt = document.getElementById('myChart').getContext('2d');
 
   myChart = new Chart(ctxt, {
     type: 'bar',
@@ -40,6 +36,14 @@ const setup = () => {
       }
     }
   });
+}
+const updateData=(chart,label,data)=> {
+  chart.data.labels.unshift(label);
+  chart.data.datasets[0].data.unshift(data);
+  chart.data.datasets[0].data.pop();
+  chart.data.labels.pop();
+  
+  chart.update();
 }
 
 window.addEventListener('DOMContentLoaded', setup);

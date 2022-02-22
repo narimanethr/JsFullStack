@@ -54,10 +54,6 @@ export default class Paddle extends Mobile {
     }
 
   
-    isInside(x, y) {
-    if((this.x <= x && x <= (this.x + this.image.width)) && (this.y <= y && y <= (this.y + this.image.height))) {
-        return true;
-    }
-    return false;
+ 
 }
-}
+

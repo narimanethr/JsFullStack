@@ -1,7 +1,5 @@
 'use strict';
-
 import Game from './Game.js';
-
 const init = () => {
   const theField = document.getElementById("field");
   const theGame = new Game(theField);

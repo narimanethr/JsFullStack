@@ -1,5 +1,6 @@
 import Mobile from './Mobile.js';
-
+import MoveState from './MoveState.js';
+import Paddle from './Paddle.js';
 
 // default values for a Ball : image and shifts
 const BALL_IMAGE_SRC = './images/balle24.png';
@@ -21,6 +22,7 @@ export default class Ball extends Mobile {
   constructor(x, y, theGame) {
     super(x, y, BALL_IMAGE_SRC , SHIFT_X, SHIFT_Y);
     this.theGame = theGame;
+    this.paddles = new Map().set("left", new Paddle(40,this.canvas.height/2)).set("right",new Paddle(this.canvas.width-40,this.canvas.height/2));
   }
 
 
@@ -36,5 +38,24 @@ export default class Ball extends Mobile {
     }
     super.move();
   }
+  collisionWith(paddles){
+    return this.x <= paddles.x + paddles.width && this.x >= paddles.x && this.y <= paddles.y+paddles.height && this.y >= paddles.y;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

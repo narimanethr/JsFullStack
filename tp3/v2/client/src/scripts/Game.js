@@ -1,7 +1,7 @@
 import Ball from './Ball.js';
 import Paddle from './Paddle.js';
-//const player = document.getElementById('player');
-//const com = document.getElementById('com');
+const player = document.getElementById('player');
+const com = document.getElementById('com');
 /**
  * a Game animates a ball bouncing in a canvas
  */
@@ -22,6 +22,8 @@ export default class Game {
     this.com = null;
     this._scoreHome = 0;
     this._scoreVisitor = 0;
+    this.player = null;
+    this.com = null;
   }
   /** start this game animation */
   start() {
@@ -42,6 +44,18 @@ export default class Game {
   }
   set canvas(canvas) {
     this._canvas = canvas
+  }
+  get player() {
+    return this._player;
+  }
+  set player(canvas) {
+    this._player = player;
+  }
+  get player() {
+    return this._player;
+  }
+  set com(canvas) {
+    this._com = this.com;
   }
 
 

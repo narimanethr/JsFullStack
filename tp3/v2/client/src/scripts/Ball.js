@@ -59,9 +59,9 @@ collisondet(paddles){
 
 }
 
-/*
+
 update(){
-  let player =(this.x<canvas.height/2)?user:Com;
+  let player =(this.x<canvas.height/2)?user:com;
 // the ball has a velocity
   this.x += this.shiftX;
   this.y += this.shiftY;
@@ -91,14 +91,14 @@ update(){
   }
   // update the score 
   if( this.x - this.radius < 0 ){
-    scorevisitor++;
+    scoreVisitor++;
     resetBall();
 }else if( this.x + this.radius > canvas.width){
-    scoreplayer++;
+    scoreHome++;
     resetBall();
 }
 }
-*/
+
 // when COM or USER scores, we reset the ball ( remmetre en place la balle )
  resetBall(){
   this.shiftX = -this.shiftX;

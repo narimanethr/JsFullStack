@@ -1,5 +1,7 @@
 import Ball from './Ball.js';
 import Paddle from './Paddle.js';
+//const player = document.getElementById('player');
+//const com = document.getElementById('com');
 /**
  * a Game animates a ball bouncing in a canvas
  */
@@ -12,10 +14,14 @@ export default class Game {
    */
   constructor(canvas) {
     this.raf = null;
+    this._ctxt = null;
     this.canvas = canvas;
     this.paddles = new Map().set("left", new Paddle(40,this.canvas.height/2)).set("right",new Paddle(this.canvas.width-40,this.canvas.height/2));
-    this.ball = new Ball(this.canvas.width/2, this.canvas.height/2, this);
-    this._ctxt = null;
+    this.ball = new Ball(this.canvas.width/2, this.canvas.height/2, this); // la balle au centre 
+    //this.player = null;
+    this.com = null;
+    this._scoreHome = 0;
+    this._scoreVisitor = 0;
   }
   /** start this game animation */
   start() {
@@ -25,13 +31,20 @@ export default class Game {
   stop() {
     window.cancelAnimationFrame(this.raf);
   }
- 
   get context() {
     return this._ctxt;
   }
   set context(ctxt) {
     this._ctxt = ctxt
   }
+  get canvas() {
+    return this._canvas;
+  }
+  set canvas(canvas) {
+    this._canvas = canvas
+  }
+
+
   /** animate the game : move and draw */
   animate() {
     this.ctxt = this.canvas.getContext("2d");
@@ -85,14 +98,16 @@ ballEvenement() {
   if (this.ball) {
       this.ball.draw(this.ctxt);
       if (!this.ball == false) {
-          this.ball.collisionWith(this.paddles);
+        for (let key of this.paddles.keys()) {
+          this.ball.collisondet(this.paddles.get(key))
           this.ball.move(this.canvas);
+
+        }   
+          
         }
-        console.log(100);
+       
   }
 }
-
-
 
   keyDownActionHandler(event) {
     switch (event.key) {

@@ -21,11 +21,11 @@ export default class Mobile {
   }
 
   /** @return {number} the width of the mobile, ie. its images's width */
-  get width() {
+  getWidth() {
     return this.img.width;
   }
   /** @return {number} the width of the mobile, ie. its images's height */
-  get height() {
+  getHeight() {
     return this.img.height;
   }
   /** this mobile moves : horizontal and vertical shifts are added to coordinates */

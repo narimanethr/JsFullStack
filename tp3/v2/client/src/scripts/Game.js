@@ -12,10 +12,10 @@ export default class Game {
    */
   constructor(canvas) {
     this.raf = null;
-    this._ctxt = null;
     this.canvas = canvas;
     this.paddles = new Map().set("left", new Paddle(40,this.canvas.height/2)).set("right",new Paddle(this.canvas.width-40,this.canvas.height/2));
     this.ball = new Ball(this.canvas.width/2, this.canvas.height/2, this);
+    this._ctxt = null;
   }
   /** start this game animation */
   start() {
@@ -25,14 +25,13 @@ export default class Game {
   stop() {
     window.cancelAnimationFrame(this.raf);
   }
+ 
   get context() {
     return this._ctxt;
   }
   set context(ctxt) {
     this._ctxt = ctxt
   }
- 
-
   /** animate the game : move and draw */
   animate() {
     this.ctxt = this.canvas.getContext("2d");
@@ -86,14 +85,10 @@ ballEvenement() {
   if (this.ball) {
       this.ball.draw(this.ctxt);
       if (!this.ball == false) {
-        for (let key of this.paddles.keys()) {
-          this.ball.collisionWith(this.paddles.get(key))
+          this.ball.collisionWith(this.paddles);
           this.ball.move(this.canvas);
-
-        }   
-          
         }
-       
+        console.log(100);
   }
 }
 

@@ -8,8 +8,6 @@ export default class Paddle extends Mobile {
         super(x, y, image_Paddle, 0, 6);
         this._moving = MoveState.NONE;
     }
-
-   
     get up () {
         return (this._moving == MoveState.UP);
     }
@@ -54,6 +52,7 @@ export default class Paddle extends Mobile {
     }
 
   
- 
+  
+
 }
 

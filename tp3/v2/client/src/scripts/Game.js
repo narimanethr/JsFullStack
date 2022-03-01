@@ -6,6 +6,7 @@ const com = document.getElementById('com');
  * a Game animates a ball bouncing in a canvas
  */
 export default class Game {
+  #playerId;
 
   /**
    * build a Game
@@ -84,6 +85,10 @@ rightPaddleUp(){
   this.paddles.get("right").moveUp();
 
 }
+rightPaddle(){
+  this.paddles.get("right");
+
+}
 
 rightPaddleDown(){
   this.paddles.get("right").moveDown();
@@ -91,6 +96,10 @@ rightPaddleDown(){
 
 leftPaddleStopMoving(){
   this.paddles.get("left").stopMoving();
+ 
+}
+leftPaddle(){
+  this.paddles.get("left");
  
 }
 leftPaddleUp(){
@@ -113,7 +122,7 @@ ballEvenement() {
       this.ball.draw(this.ctxt);
       if (!this.ball == false) {
         for (let key of this.paddles.keys()) {
-          this.ball.collisondet(this.paddles.get(key))
+          this.ball.collisionWith(this.paddles.get(key))
           this.ball.move(this.canvas);
 
         }   
@@ -122,37 +131,37 @@ ballEvenement() {
        
   }
 }
-
-  keyDownActionHandler(event) {
-    switch (event.key) {
-        case "ArrowUp":
-        case "UP":
-          this.leftPaddleUp();
-          this.rightPaddleUp();
-            break;
-        case "ArrowDown":
-        case "DOWN":
-          this.leftPaddleDown();
-          this.rightPaddleDown();
-            break;
-        default:
-            return;
-    }
-    event.preventDefault();
+keyDownActionHandler(event){
+  switch (event.key) {
+      case "ArrowUp":
+      case "UP":
+        this.leftPaddleUp();
+        this.rightPaddleUp();
+          break;
+       case "ArrowDown":
+       case "DOWN":
+         this.leftPaddleDown();
+         this.rightPaddleDown();
+           break;
+      default: return;
+  }
+  event.preventDefault();
 }
 keyUpActionHandler(event) {
   switch (event.key) {
+
       case "ArrowUp":
       case "Up":
       case "ArrowDown":
       case "Down":
         this.leftPaddleStopMoving();
-         this.rightPaddleStopMoving();
+        this.rightPaddleStopMoving();
           break;
-      default:
-          return;
+      default: return;
   }
   event.preventDefault();
-}
+
+
+} 
 
 }

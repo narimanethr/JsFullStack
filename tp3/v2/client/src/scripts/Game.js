@@ -39,6 +39,9 @@ export default class Game {
   stop() {
     window.cancelAnimationFrame(this.raf);
   }
+  startRound() {
+    this.ball = new Ball(this.canvas.width/2 , this.canvas.height/2, this); // la balle au centre 
+  }
  
 
  
@@ -52,10 +55,6 @@ export default class Game {
   set context(ctxt) {
     this._ctxt = ctxt
   }
-  
-
- 
-
   /** animate the game : move and draw */
   animate() {
     this.ctxt = this.canvas.getContext("2d");
@@ -114,9 +113,7 @@ leftPaddleDown(){
   
 }
 
-startRound() {
-  this.ball = new Ball(this.canvas.width/2 , this.canvas.height/2, this); // la balle au centre 
-}
+
 
 
 keyDownActionHandler(event){

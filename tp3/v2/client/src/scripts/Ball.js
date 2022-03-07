@@ -23,10 +23,14 @@ export default class Ball extends Mobile {
    * when moving a ball bounces inside the limit of its game's canvas
    */
     move() {
-      if (this.x <= 0  || this.x >= this.theGame.canvas.width - this.img.width){
-       
-        console.log(" le jeu s'arréte :(");
-       
+      if (this.x <= 0){
+     
+        document.getElementById('score_player2').innerHTML = parseInt(document.getElementById('score_player2').innerHTML) + 1;
+        this.theGame.score();
+      } else if (this.x >= this.theGame.canvas.width - this.img.width) {
+        document.getElementById('score_player1').innerHTML = parseInt(document.getElementById('score_player1').innerHTML) + 1;
+        this.theGame.score();
+        
       } else {
         if (this.y <= 0 || (this.y+this.height >= this.theGame.canvas.height)) {
           this.shiftY = - this.shiftY;    // rebond en haut ou en bas
@@ -37,7 +41,9 @@ export default class Ball extends Mobile {
         super.move();
       }
       
+      
     }
+
   
  
 resetBall(){

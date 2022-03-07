@@ -1,49 +1,53 @@
 const path = require('path');
 const webpack = require('webpack');
-
-const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const PRODUCTION = false;
+
 module.exports = {
-  entry: './src/scripts/pong.js',
-  mode :  'development' ,
+  entry: path.resolve(__dirname, './src/scripts/pong.js'),
   output: {
-    path: path.resolve(__dirname, '../server/public'),
+    path: (PRODUCTION ? path.resolve(__dirname, '../server/public') :path.resolve(__dirname, '../server/public')),
     filename: 'scripts/bundle.js'
   },
-
-  
-  
-
+  mode :  (PRODUCTION ? 'production' : 'development'),
+  devtool : (PRODUCTION ? undefined : 'eval-source-map'),
   devServer: {
       static: {
-	       publicPath: path.resolve(__dirname, 'dist'),
-	       watch : true
+         publicPath: path.resolve(__dirname, 'dist'),
+         watch : true
       },
-      host : 'localhost',
-      port : 8080,
+      host: 'localhost',
+      port : 8888,
       open : true
-  }, 
-
-
+  },
   plugins: [
-      new HtmlWebpackPlugin({
-	       template: './src/index.html',
-	        filename: './index.html',
-      }),
-      new CopyPlugin({
-          patterns: [
-           
-            {      // décommenter ce bloc pour copier les fichiers de src/images dans dist/images
-              from: 'src/images/*',
-              to:  'images/[name][ext]',
-              
-            },
-            {
-  
-             from: 'src/style/*',
-             to:  'style/[name][ext]',
-           },
-         ]
-       }),
-     ],
-}
+    new webpack.ProgressPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      filename: "./index.html"
+    }),
+    new CopyPlugin({
+  	    patterns: [
+          {
+            context: path.resolve(__dirname, "src", "html"),
+            from: '**/*.html',
+            to:   'html/[name].html',
+            noErrorOnMissing: true
+          },
+          {
+            context: path.resolve(__dirname, "src", "images"),
+            from: '**/*',
+            to:   'images/[name][ext]',
+            noErrorOnMissing: true
+          },
+          {
+            context: path.resolve(__dirname, "src", "style"),
+            from: '**/*',
+            to:   'style/[name][ext]',
+            noErrorOnMissing: true
+          },
+  	    ]
+  	})
+  ]
+};

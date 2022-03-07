@@ -2,23 +2,23 @@ import Mobile from './Mobile.js';
 import MoveState from './MoveState.js';
 
 const  image_Paddle= './images/paddle.png';
-const shiftY = 10;
+const shiftY = 8;
 export default class Paddle extends Mobile {
     constructor(x, y, theGame) {
         super(x, y, image_Paddle, 0,shiftY );
         this._moving = MoveState.NONE;
 }
-    get up () {
+    getup() {
         return (this._moving == MoveState.UP);
     }
     
    
-    get down () {
+    getdown() {
         return (this._moving == MoveState.DOWN);
     }
     
    
-    get moving() {
+    get moving () {
         return this._moving;
     }
 
@@ -30,7 +30,7 @@ export default class Paddle extends Mobile {
     
     moveDown() {
         this.shiftY += this.shiftY;
-        this.moving = MoveState.DOWN;
+        this._moving = MoveState.DOWN;
     }
 
    
@@ -41,27 +41,24 @@ export default class Paddle extends Mobile {
     stopMoving() {
         this.moving = MoveState.NONE;
     }
-    move() {
-        if(this.moving!=MoveState.NONE){
-          if (this.y + shiftY> shiftY+1 && this.moving === MoveState.UP)  {
-            super.move();
+    move(){
+        if(this.getdown()){
+          this.y = Math.min(this.y + this.shiftY, this.theGame.canvas.height - this.img.height);
         }
-        else if(this.y+shiftY<this.theGame.canvas.height-shiftY -60 && this.moving === MoveState.DOWN){
-          super.move();
-        }
+  
+        if(this.getup()){
+          this.y = Math.max(this.y - this.shiftY, 0);
         }
       }
-      
-      inside(px,py){
-        return (px >= this.x && px <=(this.x+this.img.width) && py >= this.y && py <= (this.y+this.img.height));
-      }
-    
-      inside2(px,py){
-        return (px >= this.x && px <=(this.x+this.img.width) && py >= this.y && py <= (this.y+this.img.height));
-      }
+  
 
-  
-  
+  inside(px, py){
+    return (px >= this.x && px <=(this.x+this.img.width) && py >= this.y && py <= (this.y+this.img.height));
+  }
+
+
+
+    
 
 }
 

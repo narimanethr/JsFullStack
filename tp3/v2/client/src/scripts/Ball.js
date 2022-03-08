@@ -43,6 +43,7 @@ export default class Ball extends Mobile {
       
       
     }
+    /*elle change la vitesse et la direction par rapport au endroit de la collision*/
  resetBall(){
   if(reset ){
     this.shiftX = -this.shiftX;

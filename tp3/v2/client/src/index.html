@@ -9,7 +9,8 @@
 
   <link rel="stylesheet" type="text/css" href="./style/style.css"/>
 
-
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./scripts/pong.js" type="module"></script>
 
 </head>
 
@@ -17,6 +18,11 @@
 <body>
 
 <h1 id="player"></h1>
+
+<div id="scores">
+  <h2 class="highscore" id="score_player1">0</h2>
+  <h2 class="highscore" id="score_player2">0</h2>
+</div>
 
 <canvas id="field" width="800" height="600">
 </canvas>

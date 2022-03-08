@@ -7,6 +7,7 @@ export default class Paddle extends Mobile {
     constructor(x, y, theGame) {
         super(x, y, image_Paddle, 0,shiftY );
         this._moving = MoveState.NONE;
+        this.theGame = theGame;
 }
     getup() {
         return (this._moving == MoveState.UP);

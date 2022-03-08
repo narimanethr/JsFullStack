@@ -41,7 +41,7 @@ ajouter : "start": "nodemon server.js "  dans "script" dans le fichier package.j
   *Ball : Qui represente la balle
   *Paddle : Qui represente la raquette
   *Game : representant le terrain de jeu qui dessine anime tous les mobiles
-  *movestate : Qui represente les états des déplacemens viseau.
+  *movestate : Qui represente les états des déplacemens .
 
 ## Points importants de ce projet :
   * Implimentation de classes.
@@ -50,3 +50,5 @@ ajouter : "start": "nodemon server.js "  dans "script" dans le fichier package.j
   * Implimentation de socket.io
   * Implimentation de controlleurs
   * Implimentation d'un systeme d'envoi de message client->serveur->client.
+## Avancement :
+j'ai malheureusement  pas pu  finit la dernière partie , et j'ai des soucis avec certaines fonctions qui fonctionne pas correctement .

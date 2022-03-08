@@ -51,4 +51,4 @@ ajouter : "start": "nodemon server.js "  dans "script" dans le fichier package.j
   * Implimentation de controlleurs
   * Implimentation d'un systeme d'envoi de message client->serveur->client.
 ## Avancement :
-j'ai malheureusement  pas pu  finit la dernière partie , et j'ai des soucis avec certaines fonctions qui fonctionnent  pas correctement .
+j'ai malheureusement  pas pu  finir la dernière partie , et j'ai des soucis avec certaines fonctions qui fonctionnent  pas correctement .

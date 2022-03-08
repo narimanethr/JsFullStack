@@ -1,5 +1,6 @@
 import Ball from './Ball.js';
 import Paddle from './Paddle.js';
+const joueurId = { ONE : 1, TWO : 2};
 /**
  * a Game animates a ball bouncing in a canvas
  */
@@ -8,8 +9,7 @@ export default class Game {
  
   #joueurId;
   #socket;
-  lost = 0;
-  pause = false;
+  paused = false;
 
   /**
    * build a Game
@@ -35,7 +35,7 @@ export default class Game {
     /** stop this game animation */
     stop() {
       window.cancelAnimationFrame(this.raf);
-      this.#socket.disconnect();
+      socket.disconnect();
     }
   
     /** arrete le jeu apres un but */
@@ -81,7 +81,7 @@ export default class Game {
 
  
   send_sync_ball(){
-    this.#socket.emit('sync ball', {x: this.ball.x, y : this.ball.y});
+    socket.emit('sync ball', {x: this.ball.x, y : this.ball.y});
   }
 
 
@@ -92,14 +92,14 @@ export default class Game {
 
   send_sync_paddle(){
     if(this.#joueurId == 1){
-      this.#socket.emit('sync paddle', {x: this.leftPaddle.x, y : this.leftPaddle.y})
+      socket.emit('sync paddle', {x: this.leftPaddle.x, y : this.leftPaddle.y})
     }else if(this.#joueurId == 2){
-      this.#socket.emit('sync paddle', {x: this.rightPaddle.x, y : this.rightPaddle.y})
+      socket.emit('sync paddle', {x: this.rightPaddle.x, y : this.rightPaddle.y})
     }
   }
 
 
-  receive_sync_paddle(paddle){
+  send_sync_paddle(paddle){
     if(this.#joueurId == 1){
       this.rightPaddle= paddle.y;
     }else if(this.#joueurId == 2){
@@ -159,19 +159,22 @@ export default class Game {
 
   connect() {
         // création de la socket (connection client server)
-        this.#socket = io('http://localhost:8080/');
-        this.#socket.on("start_game", () => this.start());
-        this.#socket.on('send_new_ball', () => this.redemare());
-        this.#socket.on('disble_start' , () => this.disable_start());
-        this.#socket.on('set_player_name', (player) => this.set_player_name(player));
-        this.#socket.on('set_player_id', (player) => this.set_player_id(player));
-        this.#socket.on('set_msg_box', (msg) => this.set_msg(msg));
-        this.#socket.on('move_down', () => this.move_player_down());
-        this.#socket.on('move_up', () => this.move_player_up());
-        this.#socket.on('stop_moving', () => this.stop_moving_player());
-        this.#socket.on('sync_ball', (ball) => this.send_sync_ball(ball));
-        this.#socket.on('sync_paddle', (paddle) => this.send_sync_paddle(paddle));
-        this.#socket.on('disconnected', () => this.has_disconnected());
+        socket = io('http://localhost:8080/');
+        socket.on("start_game", () => this.start());
+        socket.on('send_new_ball', () => this.redemare());
+
+        socket.on('disble_start' , () => this.disable_start());
+        socket.on('set_player_name', (player) => this.set_player_name(player));
+        socket.on('set_player_id', (player) => this.set_player_id(player));
+        socket.on('set_msg_box', (msg) => this.set_msg(msg));
+        socket.on('move_down', () => this.move_player_down());
+        socket.on('move_up', () => this.move_player_up());
+        socket.on('stop_moving', () => this.stop_moving_player());
+
+        socket.on('sync_ball', (ball) => this.send_sync_ball(ball));
+        socket.on('sync_paddle', (paddle) => this.send_sync_paddle(paddle));
+
+        socket.on('disconnected', () => this.has_disconnected());
   }
   
   has_disconnected(){
@@ -184,9 +187,8 @@ export default class Game {
 
   redemare(){
     this.set_msg({msg_txt: ""});
-    // the ball in the center 
     this.ball = new Ball(this.canvas.width/2, this.canvas.height/2, this);
-    this.pause = false;
+    this.paused = false;
     this.ball.stopMoving();
     this.leftPaddle.y = this.canvas.height/2;
     this.rightPaddle.y = this.canvas.height/2;
@@ -260,6 +262,10 @@ leftPaddleDown(){
   this._leftPaddle.moveDown();
   
 }
+
+
+
+
 keyDownActionHandler(event){
   switch (event.key) {
       case " ":
@@ -273,8 +279,11 @@ keyDownActionHandler(event){
           this.rightPaddleUp();
         }
         
-        this.#socket.emit("move up");
+        socket.emit("move up");
         break;
+    
+       
+          break;
        case "ArrowDown":
        case "DOWN":
         this.send_sync_paddle();
@@ -284,7 +293,7 @@ keyDownActionHandler(event){
           this.rightPaddleDown();
         }
 
-        this.#socket.emit("move down");
+        socket.emit("move down");
         break;
     default: return;
       
@@ -304,7 +313,7 @@ keyUpActionHandler(event) {
           this.rightPaddleStopMoving();
         }
         
-        this.#socket.emit("stop moving");
+        socket.emit("stop moving");
         break;
       default: return;
         

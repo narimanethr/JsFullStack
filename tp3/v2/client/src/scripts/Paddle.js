@@ -51,8 +51,12 @@ export default class Paddle extends Mobile {
           this.y = Math.max(this.y - this.shiftY, 0);
         }
       }
-  
-
+   /**
+   * return true if the ball is inside the paddle false  otherwise
+   * @param {*} px the  x position to be compared to this x position
+   * @param {*} py the  y position to be compared this y position
+   * @returns
+   */
   inside(px, py){
     return (px >= this.x && px <=(this.x+this.img.width) && py >= this.y && py <= (this.y+this.img.height));
   }

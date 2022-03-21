@@ -54,4 +54,4 @@ ajouter : "start": "nodemon server.js "  dans "script" dans le fichier package.j
 - j'ai malheureusement  pas pu  finir la dernière partie , et j'ai des soucis avec certaines fonctions qui fonctionnent  pas correctement .
 - la balle est trop rapide , les paddles sont coincées.
 - et au niveau de l'inspecteur du  navigateur je ne  vois pas d'erreurs s'afficher
-- avant le mis en palce de second paddle tout fonctionner correctement mais lorsque  j'ai mis le deuxieme paddle et que j'ai entamé la partie réseau j'étais tout le temps  confronté à des problèmes.
+- avant la mise en palce de second paddle tout fonctionner correctement mais lorsque  j'ai mis le deuxieme paddle et que j'ai entamé la partie réseau j'étais tout le temps  confronté à des problèmes.
